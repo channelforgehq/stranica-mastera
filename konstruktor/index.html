@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Конструктор страницы — Страница мастера</title><meta name="description" content="Соберите страницу-визитку: оформление, цвет, шрифт и блоки — цена и срок сразу."><meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="/stranica-mastera/_/f/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:"k-unbounded";src:url(/stranica-mastera/_/f/unbounded-cyrillic.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}@font-face{font-family:"k-unbounded";src:url(/stranica-mastera/_/f/unbounded-latin.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:"k-unbounded";src:url(/stranica-mastera/_/f/unbounded-rub.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+20BD}@font-face{font-family:"k-manrope";src:url(/stranica-mastera/_/f/manrope-cyrillic.woff2) format("woff2");font-weight:200 800;font-display:swap;unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}@font-face{font-family:"k-manrope";src:url(/stranica-mastera/_/f/manrope-latin.woff2) format("woff2");font-weight:200 800;font-display:swap;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:"k-manrope";src:url(/stranica-mastera/_/f/manrope-rub.woff2) format("woff2");font-weight:200 800;font-display:swap;unicode-range:U+20BD}
+:root{--bg:#f4f1ec;--card:#fffdf9;--ink:#191714;--muted:#6d665d;--line:rgba(25,23,20,.12);--hi:#e8553e;--fh:"k-unbounded","k-manrope",system-ui,sans-serif;--fb:"k-manrope",system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+h1,h2,h3{font-family:var(--fh);font-weight:600;line-height:1.1;letter-spacing:-.02em;margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.top{position:sticky;top:0;z-index:20;background:rgba(244,241,236,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
+.brand{font:600 15px/1 var(--fh);text-decoration:none}
+.top nav{display:flex;gap:4px}
+.top nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:700;color:var(--muted)}
+.top nav a[aria-current]{background:var(--ink);color:var(--bg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 22px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font-weight:700;font-size:15.5px;text-decoration:none;text-align:center}
+.btn.hi{background:var(--hi);color:#fff}
+.btn.line{background:none;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.wide{width:100%}
+.hero{padding:34px 0 8px}
+.kick{display:block;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--hi);margin-bottom:10px}
+.hero h1{font-size:clamp(30px,7vw,56px);max-width:16ch}
+.hero p{max-width:56ch;color:var(--muted);font-size:17px;margin:14px 0 0}
+.box{padding:20px;border-radius:22px;background:var(--card)}
+.note{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;max-width:calc(100% - 32px);padding:12px 18px;border-radius:14px;background:var(--ink);color:var(--bg);font-size:14.5px;font-weight:600}
+.msgbox{display:none;margin-top:12px;padding:14px;border-radius:14px;background:var(--bg);white-space:pre-wrap;font-size:14px;max-height:260px;overflow:auto}
+.msgbox.on{display:block}
+.ft{padding:30px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+/* конструктор */
+.kgrid{display:grid;gap:14px;margin-top:22px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:900px){.kgrid{grid-template-columns:minmax(0,1fr) 410px;align-items:start}.kgrid>.st{grid-column:1}.kgrid>.pv{grid-column:2;grid-row:1/span 5;position:sticky;top:72px}}
+.st h2{display:flex;align-items:center;gap:12px;font-size:20px;margin-bottom:14px}
+.st h2 i{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:600 14px/1 var(--fh);font-style:normal}
+.st h3{font-size:13px;font-family:var(--fb);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px}
+.tcard{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:10px;border:0;border-radius:16px;background:var(--bg);text-align:left;box-shadow:inset 0 0 0 1.5px transparent}
+.tcard[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--ink);background:#fff}
+.tcard .sw3{display:flex;width:100%;height:34px;border-radius:10px;overflow:hidden}
+.tcard .sw3 i{flex:1}
+.tcard b{font-size:14.5px}
+.idea{margin:12px 0 0;color:var(--muted);font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:0;border-radius:999px;background:var(--bg);font-weight:700;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chip .sw{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.blk{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.blk label{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:12px;border-radius:14px;background:var(--bg);cursor:pointer}
+.blk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink)}
+.blk b{display:block;font-size:15px}.blk span{display:block;color:var(--muted);font-size:13.5px;line-height:1.4}
+.blk input:disabled+div{opacity:.75}
+.pv{padding:12px}
+.phone{position:relative;margin:0 auto;border-radius:38px;padding:10px;background:#111;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.phone .scr{position:relative;overflow:hidden;border-radius:30px;background:#fff}
+.phone iframe{position:absolute;left:0;top:0;width:390px;height:780px;border:0;transform-origin:0 0}
+.pv-note{margin:10px 4px 0;font-size:13px;color:var(--muted);text-align:center}
+.sum{margin-top:30px;background:var(--ink);color:var(--bg)}
+.sum h2{font-size:26px}
+.sum dl{margin:16px 0 0;display:grid;gap:8px}
+.sum dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;font-size:15px}
+.sum dt{color:rgba(244,241,236,.6)}.sum dd{margin:0;font-weight:600}
+.sum .price{display:flex;align-items:baseline;gap:10px;margin:20px 0 4px;font:600 44px/1 var(--fh)}
+.sum .price small{font:700 15px/1 var(--fb);opacity:.7}
+.sum ul{margin:12px 0 18px;padding-left:18px;color:rgba(244,241,236,.82);font-size:15px}
+.sum .acts{display:grid;gap:10px}
+@media(min-width:620px){.sum .acts{grid-template-columns:1fr 1fr}}
+.sum .btn{background:#fff;color:var(--ink)}.sum .btn.hi{background:var(--hi);color:#fff}
+.sum .msgbox{background:rgba(255,255,255,.08);color:var(--bg)}
+.sec{margin-top:40px}
+.sec>h2{font-size:26px;margin-bottom:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:last-child{text-align:right;font-weight:700;white-space:nowrap;padding-left:12px}
+.tbl small{display:block;color:var(--muted);font-size:13px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:14px;padding:15px 0;font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;line-height:.9;color:var(--hi)}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 15px;color:var(--muted)}
+/* анкета */
+.form{display:grid;gap:14px;margin-top:22px;max-width:720px}
+.form fieldset{margin:0;border:0;padding:20px;border-radius:22px;background:var(--card);display:grid;gap:12px}
+.form legend{float:left;width:100%;padding:0;margin-bottom:4px;font:600 19px/1.2 var(--fh)}
+.form legend+*{clear:both}
+.form .lead{margin:0;color:var(--muted);font-size:14px}
+.fld{display:grid;gap:6px}
+.fld>span{font-size:14px;font-weight:700}
+.fld>span em{font-style:normal;color:var(--hi)}
+.fld small{color:var(--muted);font-size:12.5px}
+.fld input,.fld select,.fld textarea{width:100%;padding:12px 14px;border:0;border-radius:12px;background:var(--bg);font-size:16px;box-shadow:inset 0 0 0 1.5px transparent}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.fld textarea{min-height:92px;resize:vertical}
+.fld.bad input,.fld.bad select{box-shadow:inset 0 0 0 1.5px var(--hi)}
+.two{display:grid;gap:12px}
+@media(min-width:620px){.two{grid-template-columns:1fr 1fr}}
+.opt{display:flex;flex-wrap:wrap;gap:8px}
+.opt label{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:var(--bg);font-size:14.5px;font-weight:600;cursor:pointer}
+.opt input{accent-color:var(--ink)}
+.chosen{padding:14px;border-radius:14px;background:var(--bg);font-size:14.5px}
+.chosen b{display:block}
+.send{background:var(--ink);color:var(--bg)}
+.send .btn{background:#fff;color:var(--ink)}.send .btn.hi{background:var(--hi);color:#fff}
+.send .acts{display:grid;gap:10px}
+@media(min-width:620px){.send .acts{grid-template-columns:1fr 1fr 1fr}}
+.send .msgbox{background:rgba(255,255,255,.08);color:var(--bg)}
+.err{display:none;margin:0;color:var(--hi);font-weight:700;font-size:14.5px}
+.err.on{display:block}
+</style></head>
+<body><header class="top"><div class="wrap"><a class="brand" href="/stranica-mastera/konstruktor/">Страница мастера</a><nav><a href="/stranica-mastera/konstruktor/" aria-current="page">Конструктор</a><a href="/stranica-mastera/anketa/">Анкета</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><span class="kick">для мастеров</span><h1>Соберите свою страницу</h1>
+<p>Красивая страница для ссылки в профиле Instagram, Telegram и ВК: услуги и цены, запись в DIKIDI или в личку, адрес и всё, что спрашивают клиентки. Выбирайте оформление и блоки — пример сразу меняется.</p></section>
+<div class="kgrid">
+<section class="st box"><h2><i>1</i>Оформление</h2><div class="themes" data-themes></div><p class="idea" data-idea></p></section>
+<section class="st box"><h2><i>2</i>Цвет</h2><div class="chips" data-pals></div></section>
+<section class="st box"><h2><i>3</i>Шрифт</h2><div class="chips" data-fonts></div></section>
+<section class="st box"><h2><i>4</i>Фото</h2><div class="chips"><button type="button" class="chip" data-ph="1">С фото</button><button type="button" class="chip" data-ph="0">Без фото</button></div><p class="note">В примере вместо фото — заглушка. Своё пришлёте после.</p></section>
+<aside class="pv box"><div class="phone"><div class="scr"><iframe title="Пример страницы" loading="eager"></iframe></div></div><p class="pv-note">Пример: мастер вымышленный, всё нажимается. Листайте внутри.</p></aside>
+<section class="st box"><h2><i>5</i>Блоки</h2><p class="note" style="margin-top:0">Основные уже включены — снимите галочку, если блок не нужен. Имя, кнопки «Записаться» и «Связаться» есть всегда.</p>
+<h3>Основные</h3><ul class="blk" data-std></ul><h3>Дополнительные</h3><ul class="blk" data-ext></ul></section>
+</div>
+<section class="sum box" id="itog"><h2>Ваша страница</h2><dl data-sum></dl>
+<div class="price">4 999 ₽<small>всё включено</small></div>
+<ul><li>Готово за 3–5 дня после анкеты, 2–3 круга правок — бесплатно.</li>
+<li>Получите короткую ссылку с вашим ником — для профиля Instagram, Telegram, ВК.</li>
+<li>Оплата после того, как посмотрите готовую страницу по временной ссылке.</li>
+<li>Размещение на год включено, дальше — 699 ₽ в год.</li></ul>
+<div class="acts"><button type="button" class="btn hi" data-send>Отправить выбор</button><a class="btn" href="/stranica-mastera/anketa/" data-anketa>Заполнить анкету</a></div>
+<div class="msgbox" aria-live="polite"></div></section>
+<section class="sec"><h2>Правки после сдачи</h2><div class="box"><table class="tbl"><tr><td>Мелкая правка<small>цена, текст, контакт</small></td><td>300 ₽</td></tr><tr><td>Новый блок<small>добавить на страницу</small></td><td>1 000 ₽</td></tr><tr><td>Смена оформления<small>другая тема</small></td><td>1 500 ₽</td></tr>
+<tr><td>Свой домен<small>домен на год, настройка и передача вам</small></td><td>+1 500 ₽</td></tr></table></div></section>
+<section class="sec faq"><h2>Вопросы</h2><details><summary>Сайт сам будет записывать клиенток?</summary><p>Нет. «Записаться» открывает вашу онлайн-запись (DIKIDI и т. п.), а если её нет — вашу личку с готовым приветствием. Время вы договариваете сами, как привыкли.</p></details><details><summary>Нужно будет что-то обновлять?</summary><p>Нет. На странице только постоянная информация, она не устаревает. Поменялись цены — напишите, поправлю.</p></details><details><summary>Когда платить?</summary><p>После того как посмотрите готовую страницу по временной ссылке и всё устроит.</p></details><details><summary>Что нужно от меня?</summary><p>Выбрать оформление здесь и заполнить анкету. Если прайс есть в DIKIDI, его переписывать не нужно — возьму оттуда.</p></details><details><summary>Можно свой адрес сайта?</summary><p>Да  свой домен — +1 500 ₽: домен на год  настройка и передача вам. Продлевать его будете сами.</p></details></section></main>
+<p class="ft">Страница мастера · страницы-визитки для мастеров</p>
+<script type="application/json" id="kit">{"owner": {"name": "Александр", "dative": "Александру", "tg": "avzorin18", "vk": "", "max": ""}, "base": "/stranica-mastera", "themes": {"noch": {"name": "Ночь", "idea": "Тёмный премиум: при открытии линия прорисовывает арку, монограмма переливается фольгой", "palettes": {"zoloto": {"name": "Золото", "sw": ["#0f0d0a", "#e2bd68", "#8f6c22"]}, "serebro": {"name": "Серебро", "sw": ["#0e0f11", "#c9d1dc", "#6c7480"]}, "izumrud": {"name": "Изумруд", "sw": ["#08130f", "#d8b46a", "#2f6e55"]}, "vino": {"name": "Вино", "sw": ["#140a0d", "#e8a7a0", "#7a2638"]}}, "fonts": {"1": "Cormorant Garamond + Manrope", "2": "Forum + Jost"}}, "priglashenie": {"name": "Приглашение", "idea": "Страница приходит конвертом с сургучной печатью: коснулись печати — выезжает открытка с именем золотой фольгой", "palettes": {"roza": {"name": "Пыльная роза", "sw": ["#eadbd5", "#8e1b2e", "#b8925a"]}, "shalfej": {"name": "Шалфей", "sw": ["#dde3d6", "#2f4a3a", "#b8925a"]}, "nebo": {"name": "Небо", "sw": ["#dce3ec", "#1f3a68", "#8d96a8"]}}, "fonts": {"1": "Great Vibes + Mulish", "2": "Cormorant Garamond + Mulish"}}, "liniya": {"name": "Одна линия", "idea": "Золотая нить начинается от имени и ведёт через все разделы к записи; узелок загорается, когда нить до него дошла", "palettes": {"zoloto": {"name": "Золото", "sw": ["#faf6ef", "#2e261b", "#c5921e"]}, "grafit": {"name": "Графит", "sw": ["#f2f2f0", "#1c1c1e", "#1c1c1e"]}, "terra": {"name": "Терракота", "sw": ["#f5ede6", "#9c4a2e", "#b5562f"]}}, "fonts": {"1": "Cormorant Garamond + Mulish", "2": "Prata + Jost"}}, "zhemchug": {"name": "Жемчуг", "idea": "Имя пишется от руки, как подпись, а под ним по одной нанизываются жемчужины с перламутровым блеском", "palettes": {"zhemchug": {"name": "Жемчуг", "sw": ["#f3f0f5", "#8b6a86", "#ffd6e4"]}, "shampan": {"name": "Шампань", "sw": ["#f6f1ea", "#9a7b55", "#f6dcc4"]}, "led": {"name": "Голубой лёд", "sw": ["#eef2f6", "#4f6e8c", "#d3e6f6"]}}, "fonts": {"1": "Great Vibes + Onest", "2": "Cormorant Garamond + Onest"}}, "golo": {"name": "Голограмма", "idea": "Голографическая клубная карта мастера: переливается радугой и блёстками, когда её крутят пальцем", "palettes": {"serebro": {"name": "Серебро", "sw": ["#e8e9ef", "#1b1d26", "#ff5fc8"]}, "roza": {"name": "Розовое золото", "sw": ["#f1e6e6", "#2a1a1d", "#ff7fa8"]}, "lavanda": {"name": "Лаванда", "sw": ["#e9e6f3", "#3b2f86", "#a77bff"]}}, "fonts": {"1": "Unbounded + Onest", "2": "Dela Gothic One + Onest"}}, "neon": {"name": "Неон", "idea": "Имя — неоновая вывеска на тёмной стене: загорается с мерцанием, отражается на полу, одна буква иногда «подмигивает»", "palettes": {"rozovyj": {"name": "Розовый", "sw": ["#140e20", "#ff3da0", "#3df2ff"]}, "goluboj": {"name": "Голубой", "sw": ["#0b1220", "#3df2ff", "#ff3da0"]}, "zakat": {"name": "Закат", "sw": ["#1a0e14", "#ff8a3d", "#ff3d6e"]}}, "fonts": {"1": "Marck Script + Comfortaa", "2": "Comfortaa + Onest"}}, "deko": {"name": "Ар-деко", "idea": "Золотой веер лучей раскрывается за монограммой, дуги и ступени прорисовываются, как в старом кинотеатре", "palettes": {"pudra": {"name": "Пудра", "sw": ["#eed5d0", "#16110f", "#b48a3c"]}, "myata": {"name": "Мята", "sw": ["#d4e6dc", "#10201a", "#a8822f"]}, "kost": {"name": "Слоновая кость", "sw": ["#efe7d8", "#15130f", "#a88236"]}}, "fonts": {"1": "Poiret One + Onest", "2": "Forum + Jost"}}, "afisha": {"name": "Афиша", "idea": "Огромное имя, как на концертной афише, и бегущие ленты с услугами крест-накрест. Ярко и громко", "palettes": {"kobalt": {"name": "Кобальт", "sw": ["#2b2bff", "#f4ff5c", "#ffa6d5"]}, "malina": {"name": "Малина", "sw": ["#c2106c", "#b8ff3d", "#ffd43d"]}, "izumrud": {"name": "Изумруд", "sw": ["#0b7a4b", "#ffb3f0", "#f4ff5c"]}}, "fonts": {"1": "Dela Gothic One + Onest", "2": "Unbounded + Inter"}}, "tetrad": {"name": "Тетрадь", "idea": "Тетрадь в клетку: имя пишется ручкой, маркер выделяет строку, сверху с размаху ставится штамп «Запись открыта»", "palettes": {"kletka": {"name": "Синяя ручка", "sw": ["#fbfaf5", "#2340a8", "#c8323a"]}, "fiolet": {"name": "Фиолетовая ручка", "sw": ["#fbf9f6", "#6b2fa8", "#e0457b"]}, "kraft": {"name": "Крафт", "sw": ["#ebddc6", "#1f3b8c", "#b02e26"]}}, "fonts": {"1": "Caveat + Onest", "2": "Marck Script + Onest"}}}, "blocks": [{"id": "about", "name": "Обо мне", "what": "Пара абзацев от вашего имени: стаж, подход, чем отличаетесь.", "std": true, "lock": false}, {"id": "price", "name": "Услуги и цены", "what": "Прайс с группами, временем и пометками. У каждой услуги — «Записаться».", "std": true, "lock": true}, {"id": "faq", "name": "Частые вопросы", "what": "Ответы на то, что спрашивают перед записью.", "std": true, "lock": false}, {"id": "address", "name": "Адрес и как найти", "what": "Вход, домофон, этаж, парковка, маршрут в Яндекс Картах, «Сохранить контакт».", "std": true, "lock": false}, {"id": "pochemu", "name": "Почему ко мне", "what": "3–5 коротких пунктов: опыт, носка, скорость, палитра.", "std": false, "lock": false}, {"id": "chistota", "name": "Чистота и безопасность", "what": "Как обрабатываете инструменты — по шагам.", "std": false, "lock": false}, {"id": "pravila", "name": "Правила записи", "what": "Опоздание, отмена и перенос, предоплата, оплата, можно ли с ребёнком.", "std": false, "lock": false}, {"id": "atmosfera", "name": "Атмосфера", "what": "Что ждёт в кабинете: напитки, кресло, можно ли с детьми.", "std": false, "lock": false}, {"id": "skidki", "name": "Скидки", "what": "Постоянные, без дат: первый визит, комплекс, день рождения.", "std": false, "lock": false}, {"id": "garantiya", "name": "Гарантия", "what": "Сколько дней бесплатно исправите скол или отслойку.", "std": false, "lock": false}, {"id": "uhod", "name": "Уход после маникюра", "what": "Памятка: как продлить носку покрытия.", "std": false, "lock": false}, {"id": "sertifikat", "name": "Подарочный сертификат", "what": "Номинал или услуга — заказ приходит вам в личку.", "std": false, "lock": false}, {"id": "chat", "name": "Вопросы в виде чата", "what": "Частые вопросы, ответы «печатаются» от вашего имени.", "std": false, "lock": false}, {"id": "kursy", "name": "Курсы для мастеров", "what": "Если обучаете: курсы, длительность, цена, кнопка «Узнать о курсе».", "std": false, "lock": false}]}</script>
+<script>
+const K = JSON.parse(document.getElementById("kit").textContent);
+const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const toast = (t) => { const o = $(".toast"); if (o) o.remove(); const d = document.createElement("div"); d.className = "toast"; d.setAttribute("role", "status"); d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 3400) };
+const copy = (text) => { let ok = false; try { const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0;top:0"; document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove() } catch (e) {} if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {}); return ok || !!navigator.clipboard };
+const sendText = (text, box) => {
+  if (box) { box.textContent = text; box.classList.add("on") }
+  if (K.owner.tg) {
+    // Telegram с готовым текстом; длинную анкету ссылка может обрезать — полный текст ещё и копируем
+    window.open("https://t.me/" + K.owner.tg + "?text=" + encodeURIComponent(text.slice(0, 3000)), "_blank", "noopener");
+    copy(text);
+    if (text.length > 3000) toast("Текст длинный — он скопирован целиком, вставьте его в чат, если обрезался");
+    return;
+  }
+  if (navigator.share) { navigator.share({ text }).catch(() => {}); return }
+  copy(text); toast("Текст скопирован — отправьте его " + (K.owner.dative || K.owner.name) + " в переписку");
+};
+
+const st = { t: Object.keys(K.themes)[0], p: "", f: "1", ph: true, b: new Set(K.blocks.filter((b) => b.std).map((b) => b.id)) };
+const frame = $(".phone iframe"), scr = $(".phone .scr");
+const src = () => K.base + "/primer/" + st.t + (st.ph ? "-foto" : "") + "/?p=" + st.p + "&f=" + st.f + "&hide=" + hidden().join(",");
+const hidden = () => K.blocks.filter((b) => !st.b.has(b.id)).map((b) => b.id);
+const post = (msg) => { try { frame.contentWindow.postMessage(msg, location.origin) } catch (e) {} };
+const fit = () => { const k = Math.min(1, scr.clientWidth / 390); frame.style.transform = "scale(" + k + ")"; scr.style.height = Math.round(780 * k) + "px" };
+const draw = (reload) => {
+  const t = K.themes[st.t];
+  if (!t.palettes[st.p]) st.p = Object.keys(t.palettes)[0];
+  if (!t.fonts[st.f]) st.f = "1";
+  $$("[data-t]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === st.t));
+  $("[data-idea]").textContent = t.idea + ".";
+  $("[data-pals]").innerHTML = Object.entries(t.palettes).map(([id, p]) => '<button type="button" class="chip" data-p="' + id + '" aria-pressed="' + (id === st.p) + '"><i class="sw" style="background:linear-gradient(135deg,' + p.sw[0] + " 50%," + p.sw[1] + ' 50%)"></i>' + esc(p.name) + "</button>").join("");
+  $("[data-fonts]").innerHTML = Object.entries(t.fonts).map(([id, n]) => '<button type="button" class="chip" data-f="' + id + '" aria-pressed="' + (id === st.f) + '">' + esc(n) + "</button>").join("");
+  $$("[data-ph]").forEach((b) => b.setAttribute("aria-pressed", (b.dataset.ph === "1") === st.ph));
+  if (reload) frame.src = src(); else { post({ tl: "theme", p: st.p, f: st.f }); post({ tl: "blocks", hide: hidden() }) }
+  summary();
+};
+const blocksTxt = () => K.blocks.filter((b) => st.b.has(b.id)).map((b) => b.name);
+const choice = () => {
+  const t = K.themes[st.t];
+  return { theme: t.name, pal: t.palettes[st.p].name, font: t.fonts[st.f], photo: st.ph ? "с фото" : "без фото", blocks: blocksTxt() };
+};
+const summary = () => {
+  const c = choice();
+  $("[data-sum]").innerHTML = [["Оформление", c.theme], ["Цвет", c.pal], ["Шрифт", c.font], ["Фото", c.photo], ["Блоки", c.blocks.join(", ")]].map(([k, v]) => "<div><dt>" + k + "</dt><dd>" + esc(v) + "</dd></div>").join("");
+  const q = new URLSearchParams({ t: st.t, p: st.p, f: st.f, ph: st.ph ? "1" : "0", b: [...st.b].join(",") });
+  $("[data-anketa]").href = K.base + "/anketa/?" + q.toString();
+};
+$("[data-themes]").innerHTML = Object.entries(K.themes).map(([id, t]) => { const p = Object.values(t.palettes)[0]; return '<button type="button" class="tcard" data-t="' + id + '"><span class="sw3"><i style="background:' + p.sw[0] + '"></i><i style="background:' + p.sw[1] + '"></i><i style="background:' + p.sw[2] + '"></i></span><b>' + esc(t.name) + "</b></button>" }).join("");
+const row = (b) => '<li><label><input type="checkbox" data-b="' + b.id + '"' + (st.b.has(b.id) ? " checked" : "") + (b.lock ? " disabled" : "") + "><div><b>" + esc(b.name) + "</b><span>" + esc(b.what) + "</span></div></label></li>";
+$("[data-std]").innerHTML = K.blocks.filter((b) => b.std).map(row).join("");
+$("[data-ext]").innerHTML = K.blocks.filter((b) => !b.std).map(row).join("");
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("[data-t]"), p = e.target.closest("[data-p]"), f = e.target.closest("[data-f]"), ph = e.target.closest("[data-ph]");
+  if (t) { st.t = t.dataset.t; st.p = ""; st.f = "1"; draw(true) }
+  if (p) { st.p = p.dataset.p; draw(false) }
+  if (f) { st.f = f.dataset.f; draw(false) }
+  if (ph) { st.ph = ph.dataset.ph === "1"; draw(true) }
+  if (e.target.closest("[data-send]")) {
+    const c = choice();
+    sendText("Здравствуйте, " + K.owner.name + "! Хочу страницу-визитку.\nОформление: «" + c.theme + "», цвет «" + c.pal + "», шрифт " + c.font + ", " + c.photo + ".\nБлоки: " + c.blocks.join(", ") + ".\nЯ — ", $(".sum .msgbox"));
+  }
+});
+document.addEventListener("change", (e) => {
+  const b = e.target.closest("[data-b]"); if (!b) return;
+  if (b.checked) st.b.add(b.dataset.b); else st.b.delete(b.dataset.b);
+  draw(false);
+});
+frame.addEventListener("load", () => { post({ tl: "theme", p: st.p, f: st.f }); post({ tl: "blocks", hide: hidden() }) });
+addEventListener("resize", fit); fit(); draw(true);
+</script></body></html>

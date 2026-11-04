@@ -1,0 +1,17 @@
+{
+ "slug": "primer/priglashenie",
+ "fonts": [
+  "greatvibes",
+  "mulish",
+  "cormorant"
+ ],
+ "demo": true,
+ "metrika": false,
+ "theme": {
+  "id": "priglashenie",
+  "palette": "roza",
+  "fonts": "1"
+ },
+ "source": "demo/manikyur",
+ "built": "2026-11-04T12:30:48"
+}

@@ -1,0 +1,18 @@
+{
+ "slug": "primer/afisha",
+ "fonts": [
+  "dela",
+  "onest",
+  "unbounded",
+  "inter"
+ ],
+ "demo": true,
+ "metrika": false,
+ "theme": {
+  "id": "afisha",
+  "palette": "kobalt",
+  "fonts": "1"
+ },
+ "source": "demo/manikyur",
+ "built": "2026-11-04T12:30:48"
+}

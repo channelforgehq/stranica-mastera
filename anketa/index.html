@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Анкета для страницы — Страница мастера</title><meta name="description" content="Анкета для мастера: всё, что нужно для страницы-визитки, одним сообщением."><meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="/stranica-mastera/_/f/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:"k-unbounded";src:url(/stranica-mastera/_/f/unbounded-cyrillic.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}@font-face{font-family:"k-unbounded";src:url(/stranica-mastera/_/f/unbounded-latin.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:"k-unbounded";src:url(/stranica-mastera/_/f/unbounded-rub.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+20BD}@font-face{font-family:"k-manrope";src:url(/stranica-mastera/_/f/manrope-cyrillic.woff2) format("woff2");font-weight:200 800;font-display:swap;unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}@font-face{font-family:"k-manrope";src:url(/stranica-mastera/_/f/manrope-latin.woff2) format("woff2");font-weight:200 800;font-display:swap;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:"k-manrope";src:url(/stranica-mastera/_/f/manrope-rub.woff2) format("woff2");font-weight:200 800;font-display:swap;unicode-range:U+20BD}
+:root{--bg:#f4f1ec;--card:#fffdf9;--ink:#191714;--muted:#6d665d;--line:rgba(25,23,20,.12);--hi:#e8553e;--fh:"k-unbounded","k-manrope",system-ui,sans-serif;--fb:"k-manrope",system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+h1,h2,h3{font-family:var(--fh);font-weight:600;line-height:1.1;letter-spacing:-.02em;margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.top{position:sticky;top:0;z-index:20;background:rgba(244,241,236,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
+.brand{font:600 15px/1 var(--fh);text-decoration:none}
+.top nav{display:flex;gap:4px}
+.top nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:700;color:var(--muted)}
+.top nav a[aria-current]{background:var(--ink);color:var(--bg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 22px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font-weight:700;font-size:15.5px;text-decoration:none;text-align:center}
+.btn.hi{background:var(--hi);color:#fff}
+.btn.line{background:none;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.wide{width:100%}
+.hero{padding:34px 0 8px}
+.kick{display:block;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--hi);margin-bottom:10px}
+.hero h1{font-size:clamp(30px,7vw,56px);max-width:16ch}
+.hero p{max-width:56ch;color:var(--muted);font-size:17px;margin:14px 0 0}
+.box{padding:20px;border-radius:22px;background:var(--card)}
+.note{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;max-width:calc(100% - 32px);padding:12px 18px;border-radius:14px;background:var(--ink);color:var(--bg);font-size:14.5px;font-weight:600}
+.msgbox{display:none;margin-top:12px;padding:14px;border-radius:14px;background:var(--bg);white-space:pre-wrap;font-size:14px;max-height:260px;overflow:auto}
+.msgbox.on{display:block}
+.ft{padding:30px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+/* конструктор */
+.kgrid{display:grid;gap:14px;margin-top:22px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:900px){.kgrid{grid-template-columns:minmax(0,1fr) 410px;align-items:start}.kgrid>.st{grid-column:1}.kgrid>.pv{grid-column:2;grid-row:1/span 5;position:sticky;top:72px}}
+.st h2{display:flex;align-items:center;gap:12px;font-size:20px;margin-bottom:14px}
+.st h2 i{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:600 14px/1 var(--fh);font-style:normal}
+.st h3{font-size:13px;font-family:var(--fb);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px}
+.tcard{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:10px;border:0;border-radius:16px;background:var(--bg);text-align:left;box-shadow:inset 0 0 0 1.5px transparent}
+.tcard[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--ink);background:#fff}
+.tcard .sw3{display:flex;width:100%;height:34px;border-radius:10px;overflow:hidden}
+.tcard .sw3 i{flex:1}
+.tcard b{font-size:14.5px}
+.idea{margin:12px 0 0;color:var(--muted);font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:0;border-radius:999px;background:var(--bg);font-weight:700;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chip .sw{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.blk{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.blk label{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:12px;border-radius:14px;background:var(--bg);cursor:pointer}
+.blk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink)}
+.blk b{display:block;font-size:15px}.blk span{display:block;color:var(--muted);font-size:13.5px;line-height:1.4}
+.blk input:disabled+div{opacity:.75}
+.pv{padding:12px}
+.phone{position:relative;margin:0 auto;border-radius:38px;padding:10px;background:#111;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.phone .scr{position:relative;overflow:hidden;border-radius:30px;background:#fff}
+.phone iframe{position:absolute;left:0;top:0;width:390px;height:780px;border:0;transform-origin:0 0}
+.pv-note{margin:10px 4px 0;font-size:13px;color:var(--muted);text-align:center}
+.sum{margin-top:30px;background:var(--ink);color:var(--bg)}
+.sum h2{font-size:26px}
+.sum dl{margin:16px 0 0;display:grid;gap:8px}
+.sum dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;font-size:15px}
+.sum dt{color:rgba(244,241,236,.6)}.sum dd{margin:0;font-weight:600}
+.sum .price{display:flex;align-items:baseline;gap:10px;margin:20px 0 4px;font:600 44px/1 var(--fh)}
+.sum .price small{font:700 15px/1 var(--fb);opacity:.7}
+.sum ul{margin:12px 0 18px;padding-left:18px;color:rgba(244,241,236,.82);font-size:15px}
+.sum .acts{display:grid;gap:10px}
+@media(min-width:620px){.sum .acts{grid-template-columns:1fr 1fr}}
+.sum .btn{background:#fff;color:var(--ink)}.sum .btn.hi{background:var(--hi);color:#fff}
+.sum .msgbox{background:rgba(255,255,255,.08);color:var(--bg)}
+.sec{margin-top:40px}
+.sec>h2{font-size:26px;margin-bottom:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:last-child{text-align:right;font-weight:700;white-space:nowrap;padding-left:12px}
+.tbl small{display:block;color:var(--muted);font-size:13px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:14px;padding:15px 0;font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;line-height:.9;color:var(--hi)}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 15px;color:var(--muted)}
+/* анкета */
+.form{display:grid;gap:14px;margin-top:22px;max-width:720px}
+.form fieldset{margin:0;border:0;padding:20px;border-radius:22px;background:var(--card);display:grid;gap:12px}
+.form legend{float:left;width:100%;padding:0;margin-bottom:4px;font:600 19px/1.2 var(--fh)}
+.form legend+*{clear:both}
+.form .lead{margin:0;color:var(--muted);font-size:14px}
+.fld{display:grid;gap:6px}
+.fld>span{font-size:14px;font-weight:700}
+.fld>span em{font-style:normal;color:var(--hi)}
+.fld small{color:var(--muted);font-size:12.5px}
+.fld input,.fld select,.fld textarea{width:100%;padding:12px 14px;border:0;border-radius:12px;background:var(--bg);font-size:16px;box-shadow:inset 0 0 0 1.5px transparent}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.fld textarea{min-height:92px;resize:vertical}
+.fld.bad input,.fld.bad select{box-shadow:inset 0 0 0 1.5px var(--hi)}
+.two{display:grid;gap:12px}
+@media(min-width:620px){.two{grid-template-columns:1fr 1fr}}
+.opt{display:flex;flex-wrap:wrap;gap:8px}
+.opt label{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:var(--bg);font-size:14.5px;font-weight:600;cursor:pointer}
+.opt input{accent-color:var(--ink)}
+.chosen{padding:14px;border-radius:14px;background:var(--bg);font-size:14.5px}
+.chosen b{display:block}
+.send{background:var(--ink);color:var(--bg)}
+.send .btn{background:#fff;color:var(--ink)}.send .btn.hi{background:var(--hi);color:#fff}
+.send .acts{display:grid;gap:10px}
+@media(min-width:620px){.send .acts{grid-template-columns:1fr 1fr 1fr}}
+.send .msgbox{background:rgba(255,255,255,.08);color:var(--bg)}
+.err{display:none;margin:0;color:var(--hi);font-weight:700;font-size:14.5px}
+.err.on{display:block}
+</style></head>
+<body><header class="top"><div class="wrap"><a class="brand" href="/stranica-mastera/konstruktor/">Страница мастера</a><nav><a href="/stranica-mastera/konstruktor/">Конструктор</a><a href="/stranica-mastera/anketa/" aria-current="page">Анкета</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><span class="kick">шаг 2</span><h1>Анкета для страницы</h1>
+<p>Всё, что нужно, чтобы собрать вашу страницу. Обязательные поля отмечены звёздочкой, остальное — по желанию. В конце анкета уйдёт Александру одним сообщением.</p></section>
+<form class="form" novalidate>
+<fieldset data-skip="1"><legend>Оформление</legend><div class="chosen" data-picked></div></fieldset>
+<fieldset><legend>Основное</legend>
+<label class="fld" data-l="name" data-req><span>Имя или название студии <em>*</em></span><input type="text" name="name" placeholder="Алина" autocomplete="off"></label>
+<label class="fld" data-l="niche" data-req><span>Чем занимаетесь <em>*</em></span><input type="text" name="niche" placeholder="мастер маникюра и педикюра" autocomplete="off"></label>
+<div class="two"><label class="fld" data-l="city" data-req><span>Город <em>*</em></span><input type="text" name="city" placeholder="Ижевск" autocomplete="off"></label><label class="fld" data-l="nick"><span>Ник для ссылки</span><input type="text" name="nick" placeholder="alina-nails" autocomplete="off"><small>латиницей, будет в адресе страницы</small></label></div>
+<div class="fld" data-l="foto"><span>Фото на странице</span><div class="opt"><label><input type="radio" name="foto" value="С фото — пришлю в переписке" checked>С фото — пришлю в переписке</label><label><input type="radio" name="foto" value="Без фото">Без фото</label></div></div>
+<label class="fld" data-l="about"><span>Пара слов о себе</span><textarea name="about" placeholder="Стаж, где учились, чем отличаетесь. Можно тезисами — текст напишем за вас."></textarea></label>
+</fieldset>
+<fieldset><legend>Связь и запись</legend>
+<div class="fld" data-l="main" data-req><span>Куда писать клиенткам <em>*</em></span><div class="opt"><label><input type="radio" name="main" value="Telegram">Telegram</label><label><input type="radio" name="main" value="WhatsApp">WhatsApp</label><label><input type="radio" name="main" value="ВКонтакте">ВКонтакте</label><label><input type="radio" name="main" value="MAX">MAX</label><label><input type="radio" name="main" value="Телефон">Телефон</label></div></div>
+<p class="lead">Сюда ведёт кнопка «Связаться». Заполните контакты, которые показать на странице:</p>
+<div class="two"><label class="fld" data-l="tg"><span>Telegram</span><input type="text" name="tg" placeholder="@ник" autocomplete="off"></label><label class="fld" data-l="wa"><span>WhatsApp</span><input type="tel" name="wa" placeholder="+7 …" autocomplete="off"></label></div>
+<div class="two"><label class="fld" data-l="vk"><span>ВКонтакте</span><input type="text" name="vk" placeholder="ссылка или ник" autocomplete="off"></label><label class="fld" data-l="max"><span>MAX</span><input type="text" name="max" placeholder="ссылка на профиль" autocomplete="off"></label></div>
+<div class="two"><label class="fld" data-l="phone"><span>Телефон</span><input type="tel" name="phone" placeholder="+7 …" autocomplete="off"></label><label class="fld" data-l="mail"><span>Почта</span><input type="email" name="mail" placeholder="name@mail.ru" autocomplete="off"></label></div>
+<label class="fld" data-l="ig"><span>Instagram</span><input type="text" name="ig" placeholder="@ник" autocomplete="off"></label>
+<label class="fld" data-l="booking"><span>Онлайн-запись</span><input type="text" name="booking" placeholder="ссылка DIKIDI, YCLIENTS…" autocomplete="off"><small>Сюда ведёт «Записаться». Нет онлайн-записи — кнопка откроет вашу личку.</small></label>
+</fieldset>
+<fieldset><legend>Прайс</legend>
+<p class="lead">Если прайс есть в DIKIDI и выше стоит ссылка — ничего писать не нужно, возьму оттуда.</p>
+<label class="fld" data-l="price"><span>Услуги и цены</span><textarea name="price" placeholder="Маникюр + гель-лак — 1 900 ₽, 1,5 ч (снятие входит)…"></textarea></label>
+<div class="fld" data-l="price_scr"><span>Или так</span><div class="opt"><label><input type="checkbox" name="price_scr" value="Пришлю прайс скрином в переписке">Пришлю прайс скрином в переписке</label></div></div>
+</fieldset>
+<fieldset><legend>Адрес</legend>
+<label class="fld" data-l="address"><span>Адрес</span><input type="text" name="address" placeholder="улица, дом" autocomplete="off"></label>
+<div class="two"><label class="fld" data-l="entrance"><span>Вход</span><input type="text" name="entrance" placeholder="со двора, синяя дверь" autocomplete="off"></label><label class="fld" data-l="intercom"><span>Домофон</span><input type="text" name="intercom" placeholder="12" autocomplete="off"></label></div>
+<div class="two"><label class="fld" data-l="floor"><span>Этаж, кабинет</span><input type="text" name="floor" placeholder="2 этаж, кабинет 5" autocomplete="off"></label><label class="fld" data-l="parking"><span>Парковка</span><input type="text" name="parking" placeholder="бесплатная во дворе" autocomplete="off"></label></div>
+<label class="fld" data-l="howto"><span>Ориентир</span><input type="text" name="howto" placeholder="рядом с остановкой «…»" autocomplete="off"></label>
+<label class="fld" data-l="hours"><span>Часы работы</span><input type="text" name="hours" placeholder="пн–сб, 10:00–20:00" autocomplete="off"></label>
+</fieldset>
+<fieldset data-blk="pochemu"><legend>Почему ко мне</legend><label class="fld" data-l="pochemu"><span>3–5 пунктов</span><textarea name="pochemu" placeholder="Носка три недели. Маникюр за 1,5 часа. 200 оттенков…"></textarea></label></fieldset>
+<fieldset data-blk="chistota"><legend>Чистота и безопасность</legend><label class="fld" data-l="chistota"><span>Как обрабатываете инструменты</span><textarea name="chistota" placeholder="Мою, дезинфицирую, стерилизую в сухожаре, крафт-пакет вскрываю при вас…"></textarea></label></fieldset>
+<fieldset data-blk="pravila"><legend>Правила записи</legend><div class="two"><label class="fld" data-l="p_late"><span>Опоздание</span><input type="text" name="p_late" placeholder="жду 15 минут" autocomplete="off"></label><label class="fld" data-l="p_cancel"><span>Отмена и перенос</span><input type="text" name="p_cancel" placeholder="за сутки" autocomplete="off"></label></div><div class="two"><label class="fld" data-l="p_pre"><span>Предоплата</span><input type="text" name="p_pre" placeholder="не нужна" autocomplete="off"></label><label class="fld" data-l="p_pay"><span>Оплата</span><input type="text" name="p_pay" placeholder="наличными или переводом" autocomplete="off"></label></div><label class="fld" data-l="p_kids"><span>Можно с ребёнком?</span><input type="text" name="p_kids" placeholder="да, предупредите" autocomplete="off"></label></fieldset>
+<fieldset data-blk="atmosfera"><legend>Атмосфера</legend><label class="fld" data-l="atmosfera"><span>Что ждёт в кабинете</span><textarea name="atmosfera" placeholder="Отдельный кабинет, чай и кофе, плед…"></textarea></label></fieldset>
+<fieldset data-blk="skidki"><legend>Скидки</legend><label class="fld" data-l="skidki"><span>Постоянные скидки, без дат</span><textarea name="skidki" placeholder="−15% на первый визит, −300 ₽ за комплекс…"></textarea></label></fieldset>
+<fieldset data-blk="garantiya"><legend>Гарантия</legend><label class="fld" data-l="g_days"><span>Сколько дней</span><input type="number" name="g_days" placeholder="5" autocomplete="off"></label><label class="fld" data-l="g_text"><span>Что входит</span><textarea name="g_text" placeholder="Бесплатно исправлю скол или отслойку…"></textarea></label></fieldset>
+<fieldset data-blk="uhod"><legend>Уход после маникюра</legend><div class="fld" data-l="uhod_src"><span>Памятка</span><div class="opt"><label><input type="radio" name="uhod_src" value="Возьмите готовый текст" checked>Возьмите готовый текст</label><label><input type="radio" name="uhod_src" value="Напишу свои советы">Напишу свои советы</label></div></div><label class="fld" data-l="uhod"><span>Ваши советы</span><textarea name="uhod" placeholder="Первые сутки без бани…"></textarea></label></fieldset>
+<fieldset data-blk="sertifikat"><legend>Подарочный сертификат</legend><div class="two"><label class="fld" data-l="s_sum"><span>Номиналы</span><input type="text" name="s_sum" placeholder="2 000, 3 000, 5 000 ₽" autocomplete="off"></label><label class="fld" data-l="s_valid"><span>Срок действия</span><input type="text" name="s_valid" placeholder="3 месяца" autocomplete="off"></label></div><label class="fld" data-l="s_how"><span>Как получить</span><input type="text" name="s_how" placeholder="электронный или в кабинете" autocomplete="off"></label></fieldset>
+<fieldset data-blk="chat"><legend>Вопросы в виде чата</legend><label class="fld" data-l="chat"><span>3–6 вопросов с ответами</span><textarea name="chat" placeholder="Можно со своим дизайном? — Да, пришлите картинку…"></textarea></label></fieldset>
+<fieldset data-blk="kursy"><legend>Курсы для мастеров</legend><label class="fld" data-l="kursy"><span>Курсы</span><textarea name="kursy" placeholder="Название, длительность, цена, что получит ученица"></textarea></label></fieldset>
+<fieldset data-blk="faq"><legend>Частые вопросы</legend><label class="fld" data-l="faq"><span>Вопросы и ответы</span><textarea name="faq" placeholder="Сколько длится маникюр? — Около 1,5 часа…"></textarea></label></fieldset>
+<fieldset><legend>Ещё</legend><label class="fld" data-l="more"><span>Что-то ещё</span><textarea name="more" placeholder="Пожелания, ссылки на примеры, которые нравятся…"></textarea></label></fieldset>
+<fieldset class="send" data-skip="1"><legend>Отправить</legend>
+<p class="lead" style="color:rgba(244,241,236,.75)">Анкета уйдёт одним сообщением. На телефоне откроется «Поделиться» — выберите переписку с Александром.</p>
+<p class="err">Заполните поля, отмеченные красным.</p>
+<div class="acts"><button type="button" class="btn hi" data-act="send">Отправить</button><button type="button" class="btn" data-act="copy">Скопировать</button><button type="button" class="btn" data-act="file">Скачать файлом</button></div>
+<div class="msgbox" aria-live="polite"></div></fieldset>
+</form></main>
+<p class="ft">Страница мастера · страницы-визитки для мастеров</p>
+<script type="application/json" id="kit">{"owner": {"name": "Александр", "dative": "Александру", "tg": "avzorin18", "vk": "", "max": ""}, "base": "/stranica-mastera", "themes": {"noch": {"name": "Ночь", "idea": "Тёмный премиум: при открытии линия прорисовывает арку, монограмма переливается фольгой", "palettes": {"zoloto": {"name": "Золото", "sw": ["#0f0d0a", "#e2bd68", "#8f6c22"]}, "serebro": {"name": "Серебро", "sw": ["#0e0f11", "#c9d1dc", "#6c7480"]}, "izumrud": {"name": "Изумруд", "sw": ["#08130f", "#d8b46a", "#2f6e55"]}, "vino": {"name": "Вино", "sw": ["#140a0d", "#e8a7a0", "#7a2638"]}}, "fonts": {"1": "Cormorant Garamond + Manrope", "2": "Forum + Jost"}}, "priglashenie": {"name": "Приглашение", "idea": "Страница приходит конвертом с сургучной печатью: коснулись печати — выезжает открытка с именем золотой фольгой", "palettes": {"roza": {"name": "Пыльная роза", "sw": ["#eadbd5", "#8e1b2e", "#b8925a"]}, "shalfej": {"name": "Шалфей", "sw": ["#dde3d6", "#2f4a3a", "#b8925a"]}, "nebo": {"name": "Небо", "sw": ["#dce3ec", "#1f3a68", "#8d96a8"]}}, "fonts": {"1": "Great Vibes + Mulish", "2": "Cormorant Garamond + Mulish"}}, "liniya": {"name": "Одна линия", "idea": "Золотая нить начинается от имени и ведёт через все разделы к записи; узелок загорается, когда нить до него дошла", "palettes": {"zoloto": {"name": "Золото", "sw": ["#faf6ef", "#2e261b", "#c5921e"]}, "grafit": {"name": "Графит", "sw": ["#f2f2f0", "#1c1c1e", "#1c1c1e"]}, "terra": {"name": "Терракота", "sw": ["#f5ede6", "#9c4a2e", "#b5562f"]}}, "fonts": {"1": "Cormorant Garamond + Mulish", "2": "Prata + Jost"}}, "zhemchug": {"name": "Жемчуг", "idea": "Имя пишется от руки, как подпись, а под ним по одной нанизываются жемчужины с перламутровым блеском", "palettes": {"zhemchug": {"name": "Жемчуг", "sw": ["#f3f0f5", "#8b6a86", "#ffd6e4"]}, "shampan": {"name": "Шампань", "sw": ["#f6f1ea", "#9a7b55", "#f6dcc4"]}, "led": {"name": "Голубой лёд", "sw": ["#eef2f6", "#4f6e8c", "#d3e6f6"]}}, "fonts": {"1": "Great Vibes + Onest", "2": "Cormorant Garamond + Onest"}}, "golo": {"name": "Голограмма", "idea": "Голографическая клубная карта мастера: переливается радугой и блёстками, когда её крутят пальцем", "palettes": {"serebro": {"name": "Серебро", "sw": ["#e8e9ef", "#1b1d26", "#ff5fc8"]}, "roza": {"name": "Розовое золото", "sw": ["#f1e6e6", "#2a1a1d", "#ff7fa8"]}, "lavanda": {"name": "Лаванда", "sw": ["#e9e6f3", "#3b2f86", "#a77bff"]}}, "fonts": {"1": "Unbounded + Onest", "2": "Dela Gothic One + Onest"}}, "neon": {"name": "Неон", "idea": "Имя — неоновая вывеска на тёмной стене: загорается с мерцанием, отражается на полу, одна буква иногда «подмигивает»", "palettes": {"rozovyj": {"name": "Розовый", "sw": ["#140e20", "#ff3da0", "#3df2ff"]}, "goluboj": {"name": "Голубой", "sw": ["#0b1220", "#3df2ff", "#ff3da0"]}, "zakat": {"name": "Закат", "sw": ["#1a0e14", "#ff8a3d", "#ff3d6e"]}}, "fonts": {"1": "Marck Script + Comfortaa", "2": "Comfortaa + Onest"}}, "deko": {"name": "Ар-деко", "idea": "Золотой веер лучей раскрывается за монограммой, дуги и ступени прорисовываются, как в старом кинотеатре", "palettes": {"pudra": {"name": "Пудра", "sw": ["#eed5d0", "#16110f", "#b48a3c"]}, "myata": {"name": "Мята", "sw": ["#d4e6dc", "#10201a", "#a8822f"]}, "kost": {"name": "Слоновая кость", "sw": ["#efe7d8", "#15130f", "#a88236"]}}, "fonts": {"1": "Poiret One + Onest", "2": "Forum + Jost"}}, "afisha": {"name": "Афиша", "idea": "Огромное имя, как на концертной афише, и бегущие ленты с услугами крест-накрест. Ярко и громко", "palettes": {"kobalt": {"name": "Кобальт", "sw": ["#2b2bff", "#f4ff5c", "#ffa6d5"]}, "malina": {"name": "Малина", "sw": ["#c2106c", "#b8ff3d", "#ffd43d"]}, "izumrud": {"name": "Изумруд", "sw": ["#0b7a4b", "#ffb3f0", "#f4ff5c"]}}, "fonts": {"1": "Dela Gothic One + Onest", "2": "Unbounded + Inter"}}, "tetrad": {"name": "Тетрадь", "idea": "Тетрадь в клетку: имя пишется ручкой, маркер выделяет строку, сверху с размаху ставится штамп «Запись открыта»", "palettes": {"kletka": {"name": "Синяя ручка", "sw": ["#fbfaf5", "#2340a8", "#c8323a"]}, "fiolet": {"name": "Фиолетовая ручка", "sw": ["#fbf9f6", "#6b2fa8", "#e0457b"]}, "kraft": {"name": "Крафт", "sw": ["#ebddc6", "#1f3b8c", "#b02e26"]}}, "fonts": {"1": "Caveat + Onest", "2": "Marck Script + Onest"}}}, "blocks": [{"id": "about", "name": "Обо мне", "what": "Пара абзацев от вашего имени: стаж, подход, чем отличаетесь.", "std": true, "lock": false}, {"id": "price", "name": "Услуги и цены", "what": "Прайс с группами, временем и пометками. У каждой услуги — «Записаться».", "std": true, "lock": true}, {"id": "faq", "name": "Частые вопросы", "what": "Ответы на то, что спрашивают перед записью.", "std": true, "lock": false}, {"id": "address", "name": "Адрес и как найти", "what": "Вход, домофон, этаж, парковка, маршрут в Яндекс Картах, «Сохранить контакт».", "std": true, "lock": false}, {"id": "pochemu", "name": "Почему ко мне", "what": "3–5 коротких пунктов: опыт, носка, скорость, палитра.", "std": false, "lock": false}, {"id": "chistota", "name": "Чистота и безопасность", "what": "Как обрабатываете инструменты — по шагам.", "std": false, "lock": false}, {"id": "pravila", "name": "Правила записи", "what": "Опоздание, отмена и перенос, предоплата, оплата, можно ли с ребёнком.", "std": false, "lock": false}, {"id": "atmosfera", "name": "Атмосфера", "what": "Что ждёт в кабинете: напитки, кресло, можно ли с детьми.", "std": false, "lock": false}, {"id": "skidki", "name": "Скидки", "what": "Постоянные, без дат: первый визит, комплекс, день рождения.", "std": false, "lock": false}, {"id": "garantiya", "name": "Гарантия", "what": "Сколько дней бесплатно исправите скол или отслойку.", "std": false, "lock": false}, {"id": "uhod", "name": "Уход после маникюра", "what": "Памятка: как продлить носку покрытия.", "std": false, "lock": false}, {"id": "sertifikat", "name": "Подарочный сертификат", "what": "Номинал или услуга — заказ приходит вам в личку.", "std": false, "lock": false}, {"id": "chat", "name": "Вопросы в виде чата", "what": "Частые вопросы, ответы «печатаются» от вашего имени.", "std": false, "lock": false}, {"id": "kursy", "name": "Курсы для мастеров", "what": "Если обучаете: курсы, длительность, цена, кнопка «Узнать о курсе».", "std": false, "lock": false}]}</script>
+<script>
+const K = JSON.parse(document.getElementById("kit").textContent);
+const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const toast = (t) => { const o = $(".toast"); if (o) o.remove(); const d = document.createElement("div"); d.className = "toast"; d.setAttribute("role", "status"); d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 3400) };
+const copy = (text) => { let ok = false; try { const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0;top:0"; document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove() } catch (e) {} if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {}); return ok || !!navigator.clipboard };
+const sendText = (text, box) => {
+  if (box) { box.textContent = text; box.classList.add("on") }
+  if (K.owner.tg) {
+    // Telegram с готовым текстом; длинную анкету ссылка может обрезать — полный текст ещё и копируем
+    window.open("https://t.me/" + K.owner.tg + "?text=" + encodeURIComponent(text.slice(0, 3000)), "_blank", "noopener");
+    copy(text);
+    if (text.length > 3000) toast("Текст длинный — он скопирован целиком, вставьте его в чат, если обрезался");
+    return;
+  }
+  if (navigator.share) { navigator.share({ text }).catch(() => {}); return }
+  copy(text); toast("Текст скопирован — отправьте его " + (K.owner.dative || K.owner.name) + " в переписку");
+};
+
+const form = $("form"), q = new URLSearchParams(location.search);
+// выбор из конструктора приходит в адресе ссылки — анкета его только показывает и добавляет в сообщение
+let picked = "";
+if (q.get("t") && K.themes[q.get("t")]) {
+  const t = K.themes[q.get("t")], p = t.palettes[q.get("p")] || Object.values(t.palettes)[0], f = t.fonts[q.get("f")] || Object.values(t.fonts)[0];
+  const names = (q.get("b") || "").split(",").map((id) => (K.blocks.find((b) => b.id === id) || {}).name).filter(Boolean);
+  picked = "«" + t.name + "», цвет «" + p.name + "», шрифт " + f + ", " + (q.get("ph") === "0" ? "без фото" : "с фото") + (names.length ? ".\nБлоки: " + names.join(", ") : "");
+  $("[data-picked]").innerHTML = "<b>Ваш выбор из конструктора</b>" + esc(picked).replace(/\n/g, "<br>");
+  const chosen = new Set((q.get("b") || "").split(","));
+  $$("[data-blk]").forEach((fs) => { fs.hidden = !chosen.has(fs.dataset.blk) });
+  if (q.get("ph") === "0") $$('input[name="foto"]').forEach((r) => { r.checked = r.value === "Без фото" });
+} else {
+  $("[data-picked]").innerHTML = '<b>Оформление ещё не выбрано</b>Можно выбрать в <a href="' + K.base + '/konstruktor/">конструкторе</a> или написать словами в конце анкеты.';
+}
+let dirty = false;
+form.addEventListener("input", () => { dirty = true });
+addEventListener("beforeunload", (e) => { if (dirty) { e.preventDefault(); e.returnValue = "" } });
+const val = (n) => { const els = $$('[name="' + n + '"]', form); if (!els.length) return ""; if (els[0].type === "radio" || els[0].type === "checkbox") return els.filter((x) => x.checked).map((x) => x.value).join(", "); return els[0].value.trim() };
+const text = () => {
+  const out = ["Здравствуйте, " + K.owner.name + "! Анкета для страницы-визитки."];
+  if (picked) out.push("", "ОФОРМЛЕНИЕ", picked);
+  $$("fieldset", form).forEach((fs) => {
+    if (fs.hidden || fs.dataset.skip) return;
+    const lines = $$("[data-l]", fs).map((el) => { const v = val(el.dataset.l); return v ? el.querySelector("span").textContent.replace(/\s*\*$/, "") + ": " + v : "" }).filter(Boolean);
+    if (lines.length) out.push("", fs.querySelector("legend").textContent.toUpperCase(), ...lines);
+  });
+  return out.join("\n");
+};
+const check = () => {
+  let ok = true;
+  $$("[data-req]", form).forEach((el) => { const bad = !val(el.dataset.l); el.classList.toggle("bad", bad); if (bad) ok = false });
+  const main = val("main"), map = { "Telegram": "tg", "WhatsApp": "wa", "ВКонтакте": "vk", "MAX": "max", "Телефон": "phone" };
+  if (main && map[main] && !val(map[main])) { $('[data-l="' + map[main] + '"]').classList.add("bad"); ok = false }
+  $(".err").classList.toggle("on", !ok);
+  if (!ok) { const first = $(".bad"); if (first) first.scrollIntoView({ behavior: "smooth", block: "center" }) }
+  return ok;
+};
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("[data-act]"); if (!a) return;
+  e.preventDefault();
+  if (!check()) return;
+  const t = text(), box = $(".send .msgbox");
+  if (a.dataset.act === "send") { sendText(t, box); dirty = false }
+  if (a.dataset.act === "copy") { box.textContent = t; box.classList.add("on"); copy(t); toast("Анкета скопирована"); dirty = false }
+  if (a.dataset.act === "file") {
+    const url = URL.createObjectURL(new Blob([t], { type: "text/plain;charset=utf-8" }));
+    const l = document.createElement("a"); l.href = url; l.download = "анкета-" + (val("name") || "мастер").replace(/[^\wа-яё-]+/gi, "-") + ".txt"; document.body.appendChild(l); l.click(); l.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000); dirty = false;
+  }
+});
+</script></body></html>

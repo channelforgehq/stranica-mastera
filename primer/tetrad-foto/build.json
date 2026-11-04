@@ -1,0 +1,18 @@
+{
+ "slug": "primer/tetrad-foto",
+ "fonts": [
+  "caveat",
+  "onest",
+  "marck",
+  "plexmono"
+ ],
+ "demo": true,
+ "metrika": false,
+ "theme": {
+  "id": "tetrad",
+  "palette": "kletka",
+  "fonts": "1"
+ },
+ "source": "demo/manikyur",
+ "built": "2026-11-04T12:30:48"
+}
